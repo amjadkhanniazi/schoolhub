@@ -7,7 +7,7 @@ BoilerPlateCode
 # testing
 /coverage
 opp.js
-
+.env
 # production
 /build
 
