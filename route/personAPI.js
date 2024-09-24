@@ -32,10 +32,20 @@ router.post("/add", authenticateToken, async (req, res) => {
 });
 
 // READ all persons
-router.get("/persons", async (req, res) => {
+router.get("/getAll", async (req, res) => {
     try {
-        const persons = await Person.find().populate('user');
-        res.status(200).json(persons);
+        const persons = await Person.find();
+
+        // Map the persons array to the desired structure
+        const mappedPersons = persons.map(person => ({
+            first_name: person.first_name,
+            last_name: person.last_name,
+            date_of_birth: person.date_of_birth,
+            cnic: person.cnic,
+            user: person.user._id
+        }));
+
+        res.status(200).json(mappedPersons);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -44,9 +54,8 @@ router.get("/persons", async (req, res) => {
 // READ a single person by ID
 router.get("/person/:id", async (req, res) => {
     try {
-        const person = await Person.findById(req.params.id).populate('user');
+        const person = await Person.findById(req.params.id);
         if (!person) return res.status(404).json({ message: "Person not found" });
-
         res.status(200).json(person);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -56,13 +65,7 @@ router.get("/person/:id", async (req, res) => {
 // UPDATE a person by ID
 router.put("/person/:id", async (req, res) => {
     try {
-        const updatedPerson = await Person.findByIdAndUpdate(
-            req.params.id,
-            {
-                $set: req.body,
-            },
-            { new: true }
-        );
+        const updatedPerson = await Person.findByIdAndUpdate(req.params.id, { $set: req.body}, { new: true });
 
         if (!updatedPerson)
             return res.status(404).json({ message: "Person not found" });
