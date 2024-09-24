@@ -76,17 +76,5 @@ router.put("/person/:id", async (req, res) => {
     }
 });
 
-// DELETE a person by ID
-router.delete("/person/:id", async (req, res) => {
-    try {
-        const deletedPerson = await Person.findByIdAndDelete(req.params.id);
-        if (!deletedPerson)
-            return res.status(404).json({ message: "Person not found" });
-
-        res.status(200).json({ message: "Person deleted successfully" });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
 
 export default router;

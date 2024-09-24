@@ -4,6 +4,7 @@ import connectDB from './config/db.js';
 import 'dotenv/config';
 import AuthAPI from './route/auth.js';
 import PersonAPI from './route/personAPI.js';
+import AddressAPI from './route/addressAPI.js';
 
 const app = express();
 
@@ -15,6 +16,7 @@ connectDB();
 
 app.use('/auth', AuthAPI);
 app.use('/person', PersonAPI);
+app.use('/address', AddressAPI);
 
 
 

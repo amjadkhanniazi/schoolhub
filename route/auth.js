@@ -1,7 +1,7 @@
 import express from 'express';
 import user from '../models/user.js';
 import {validationResult} from 'express-validator';
-import validate from '../middleware/validate.js';
+import validate from '../middleware/validateSignUp.js';
 
 const router = express.Router();
 // Enum for user roles
