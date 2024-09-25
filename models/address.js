@@ -34,13 +34,7 @@ const addressSchema = new mongoose.Schema({
     },
     description:{
         type: String
-    },
-    person_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Person',
-        required: true,
-        unique: true
     }
 })
 
-export default mongoose.model('Address', addressSchema);
+export default addressSchema;

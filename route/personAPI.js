@@ -38,6 +38,7 @@ router.get("/getAll", async (req, res) => {
 
         // Map the persons array to the desired structure
         const mappedPersons = persons.map(person => ({
+            _id: person._id,
             first_name: person.first_name,
             last_name: person.last_name,
             date_of_birth: person.date_of_birth,

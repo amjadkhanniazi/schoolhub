@@ -8,37 +8,54 @@ import authenticateToken from '../middleware/authentication.js';
 
 const router = express.Router();
 
-// CREATE a new address
-router.post('/new', authenticateToken, validatePostalCode, async (req, res) => {
+router.post('/:personId/address', async (req, res) => {
+    try {
+        const personId = req.params.personId;
+        const addressData = req.body; // Address data from the form
 
-    const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+        // Find the person by ID and push the new address into the addresses array
+        const personExist = await person.findById(personId);
+
+        if (!personExist) {
+            return res.status(404).json({ error: 'Person not found' });
         }
 
-    try{
-        const {house_no, street, town, mohallah, city, postal_code, province, country, description} = req.body;
-        const p_id= await person.findOne({user:req.user.id})
-        const newAddress = new address({
-            house_no,
-            street,
-            town,
-            mohallah,
-            city,
-            postal_code,
-            province,
-            country,
-            description,
-            person_id: p_id._id
-        });
-        await newAddress.save();
-        res.status(201).json('Address Added Successfully');
+        // Add the new address to the addresses array
+        personExist.Address=addressData;
+
+        // Save the updated person document
+        await personExist.save();
+
+        res.status(200).json(personExist);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
-    catch(error){
-        res.status(400).json({message: error.message});
+});
+
+//Delete Address
+
+router.delete('/:personId/address', async (req, res) => {
+    try {
+        const personId = req.params.personId;
+
+        // Find the person by ID
+        const personExist = await person.findById(personId);
+
+        if (!personExist) {
+            return res.status(404).json({ error: 'Person not found' });
+        }
+
+        // Remove the address from the addresses array
+        personExist.Address = null;
+
+        // Save the updated person document
+        await personExist.save();
+
+        res.status(200).json('Address Deleted Successfully');
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
 })
 
-//
 
 export default router;

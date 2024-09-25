@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import addressSchema from "./address.js";
 
 const personSchema= new mongoose.Schema({
     first_name:{
@@ -16,6 +17,7 @@ const personSchema= new mongoose.Schema({
         type: String,
         required: true
     },
+    Address: addressSchema,
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
