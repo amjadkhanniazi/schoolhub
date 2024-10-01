@@ -34,11 +34,17 @@ userSchema.pre('save', async function(next) {
 });
 
 
-// Virtual field to get the products for a user (for ease of querying)
+// Virtual field to get a person data for a user (for ease of querying)
 userSchema.virtual('person', {
     ref: 'person',
     localField: '_id',
     foreignField: 'user'
+});
+
+userSchema.virtual('class', {
+    ref: 'class',
+    localField: '_id',
+    foreignField: 'teacher_id'
 });
 
 // userSchema.methods.getRole = function() {

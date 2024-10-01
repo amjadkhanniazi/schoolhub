@@ -5,6 +5,8 @@ import 'dotenv/config';
 import AuthAPI from './route/auth.js';
 import PersonAPI from './route/personAPI.js';
 import AddressAPI from './route/addressAPI.js';
+import TeacherDetailsAPI from './route/teacherDetailsAPI.js';
+import ParentDetailsAPI from './route/parentDetailsAPI.js';
 
 const app = express();
 
@@ -17,6 +19,9 @@ connectDB();
 app.use('/auth', AuthAPI);
 app.use('/person', PersonAPI);
 app.use('/address', AddressAPI);
+app.use('/teacher', TeacherDetailsAPI);
+app.use('/parent', ParentDetailsAPI);
+
 
 
 

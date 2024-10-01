@@ -1,14 +1,10 @@
 import express from 'express';
-import address from '../models/address.js';
-import {validationResult} from 'express-validator';
-import validatePostalCode from '../middleware/validatePostCode.js';
 import person from '../models/person.js';
-import authenticateToken from '../middleware/authentication.js';
 
 
 const router = express.Router();
 
-router.post('/:personId/address', async (req, res) => {
+router.post('/add/:personId', async (req, res) => {
     try {
         const personId = req.params.personId;
         const addressData = req.body; // Address data from the form
@@ -20,7 +16,7 @@ router.post('/:personId/address', async (req, res) => {
             return res.status(404).json({ error: 'Person not found' });
         }
 
-        // Add the new address to the addresses array
+        // Add the new address to the addresses array, overwrite previous address
         personExist.Address=addressData;
 
         // Save the updated person document
@@ -34,7 +30,7 @@ router.post('/:personId/address', async (req, res) => {
 
 //Delete Address
 
-router.delete('/:personId/address', async (req, res) => {
+router.delete('/delete/:personId', async (req, res) => {
     try {
         const personId = req.params.personId;
 
