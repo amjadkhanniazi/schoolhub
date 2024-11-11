@@ -22,9 +22,6 @@ app.use('/address', AddressAPI);
 app.use('/teacher', TeacherDetailsAPI);
 app.use('/parent', ParentDetailsAPI);
 
-
-
-
 app.listen(5000, () => {
     console.log('Server started on http://localhost:5000');
 })
