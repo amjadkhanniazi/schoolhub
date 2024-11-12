@@ -1,26 +1,29 @@
-import mongoose from "mongoose";
-import lectureSchema from "./lecture.js";
+import { Schema, model } from 'mongoose';
 
-const classSchema = new mongoose.Schema({
-    incharge_teacher_id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Person',
+const classSchema = new Schema({
+    class_id: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    teacher_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Teacher',
         required: true
     },
-    class_name:{
+    subject_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Subject',
+        required: true
+    },
+    class_name: {
         type: String,
         required: true
     },
-    academic_year:{
+    academic_year: {
         type: String,
         required: true
-    },
-    section:{
-        type: String,
-        required: true
-    },
-    lectures: [lectureSchema]
+    }
+});
 
-})
-
-export default mongoose.model('Class', classSchema);
+export default model('Class', classSchema);
