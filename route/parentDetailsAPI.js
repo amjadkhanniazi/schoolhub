@@ -18,7 +18,7 @@ router.post('/add/:personId', authenticateToken, async (req, res) => {
 
           // check if parent data already exists
           if(personExist.Parent){
-            return res.status(400).json({ Message: 'Already Updated' });
+            return res.status(400).json({ Message: 'Already Exist' });
         }
 
         // Add the new parent to the parents array, overwrite previous parent

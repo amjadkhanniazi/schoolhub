@@ -14,20 +14,14 @@ router.post('/add/:personId', authenticateToken, async (req, res) => {
         // Find the person by ID and push the new teacher into the teachers array
         const personExist = await person.findById(personId);
 
-
-        // check if teacher data already exists
-        if (personExist.Teacher) {
-            return res.status(400).json({ Message: 'Already Updated' });
-        }
-
         if (!personExist) {
             return res.status(404).json({ error: 'Person not found' });
         }
 
         // check if teacher data already exists
-        if (personExist.Teacher) {
-            return res.status(400).json({ Message: 'Already Updated' });
-        }
+        // if (personExist.Teacher) {
+        //     return res.status(400).json({ Message: 'Already Updated' });
+        // }
 
         // Add the new teacher to the teachers array, overwrite previous teacher
         personExist.Teacher = teacherData;
